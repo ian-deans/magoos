@@ -1,0 +1,24 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    height: 100%;
+    width: 100%;
+
+    padding: 0px 1em;
+}
+
+.balanceContainer {
+    /* border-bottom: 1px solid black; */
+    width: 100%;
+}
+
+.balanceInput {
+    border: none;
+}
+
+.balanceInput:focus {
+    outline: none;
+}

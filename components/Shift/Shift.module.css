@@ -1,0 +1,62 @@
+
+.grid {
+    display: grid;
+    grid-template-rows: 1fr 3fr 1fr 2fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+        "dataone dataone dataone dataone"
+        "employees employees employees employees"
+        "paidouts paidouts cuts cuts"
+        "start-drawer start-drawer end-drawer end-drawer"
+        "breakdown breakdown breakdown breakdown";
+    
+    justify-content: stretch;
+    align-content: stretch;
+
+    min-height: 100vh;
+    max-width: 100vw;
+
+    box-sizing: border-box;
+
+    background-color: lightgrey;
+    padding: 0em 1em;
+}
+
+.grid div {
+    /* border: solid black 1px; */
+}
+
+.dataone {
+    grid-area: dataone;
+     /* background-color: red;  */
+}
+
+.employees {
+    grid-area: employees;
+    /* background-color: blue; */
+}
+
+.paidouts {
+    grid-area: paidouts;
+    /* background-color: yellow; */
+}
+
+.cuts {
+    grid-area: cuts;
+    /* background-color: cyan; */
+}
+
+.startdrawer {
+    grid-area: start-drawer;
+    /* background-color: purple; */
+}
+
+.enddrawer {
+    grid-area: end-drawer;
+    /* background-color: magenta; */
+}
+
+.breakdown {
+    grid-area: breakdown;
+    /* background-color: darkgreen; */
+}
