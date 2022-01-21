@@ -17,6 +17,12 @@ export default function PaidOut ( props ) {
         updateDataFn({ amounts: newAmounts })
     }
 
+    function del(){
+
+        let newAmounts = [...amounts]
+        newAmounts.pop()
+        updateDataFn({ amounts: newAmounts })
+    } 
 
     function showList () {
         return (
@@ -35,7 +41,7 @@ export default function PaidOut ( props ) {
                 </div>
                 
                 <div className={styles.container} >
-                    <button onClick={handleClick } className={styles.addBtn}> Delete </button>
+                    <button onClick={ del } className={styles.addBtn}> Delete </button>
                 </div>
 
                 <div>
