@@ -23,12 +23,17 @@ const breakdownData = ( {
     expectedEndingBalance,
     endingBalance,
     startingBalance,
+    employees: { totalCashSales, totalTips },
+    paidOuts: { total: totalPaidOuts }
 } ) => ( {
     totalCash,
     totalDeficit,
     expectedEndingBalance,
     endingBalance,
     startingBalance,
+    totalCashSales,
+    totalTips,
+    totalPaidOuts
 } )
 
 function employeeData( { employees: { totalTips, totalCashSales, employees } } ) {
