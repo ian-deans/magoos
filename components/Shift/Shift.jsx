@@ -1,64 +1,15 @@
 import { useReducer } from 'react'
 import styles from './Shift.module.css'
-import moment from 'moment'
+import { _initialState } from '../../util'
 
-import { Breakdown, CornerData, Employees, PaidOut } from '..'
+import { Breakdown, CornerData, DrawerCount, Employees, PaidOut } from '..'
 
-
-const initialEmployeeData = {
-    name: '',
-    cashSales: 0,
-    ccTips: 0,
-}
-
-const initialDrawerCountData = {
-    balance: 0,
-    variance: 0,
-    counts: {
-        pennies: [ 0, 0.00 ],
-        nickles: [ 0, 0.00 ],
-        dimes: [ 0, 0.00 ],
-        quarters: [ 0, 0.00 ],
-        ones: [ 0, 0.00 ],
-        twos: [ 0, 0.00 ],
-        fives: [ 0, 0.00 ],
-        tens: [ 0, 0.00 ],
-        twenties: [ 0, 0.00 ],
-        fifties: [ 0, 0.00 ],
-        hundreds: [ 0, 0.00 ],
-    }
-}
-
-const initialPaidOutsData = {
-    total: 0.0,
-    amounts: [ '' ]
-}
-
-const initialShiftData = {
-    date: moment().format( 'dddd MMMM Do, YYYY' ),
-    type: 'Open',
-
-    employees: {
-        totalCashSales: 0,
-        totalTips: 0,
-        employees: [
-            { ...initialEmployeeData },
-            { ...initialEmployeeData },
-            { ...initialEmployeeData },
-            { ...initialEmployeeData }
-        ],
-    },
-    paidOuts: { ...initialPaidOutsData },
-    cuts: [],
-    startDrawerCount: { ...initialDrawerCountData },
-    endDrawerCount: { ...initialDrawerCountData },
-
-    totalCash: 0,   //? the sum of the starting balance and the total cash sales from all employees
-    totalDeficit: 0,    //? the sum of all employees tips and all paid outs
-    expectedEndingBalance: 0,   //? the result of total cash - total deficit
-    endingBalance: 0,   //? the balance of the end of shift drawer count
-    startingBalance: 0,    //? from user input, is also the expected balance of the start of shift drawer count
-}
+const endDrawerCountData = ( { endDrawerCount, expectedEndingBalance } ) => ( {
+    ...endDrawerCount, expectedBalance: expectedEndingBalance
+} )
+const startDrawerCountData = ( { startDrawerCount, startingBalance } ) => ( {
+    ...startDrawerCount, expectedBalance: startingBalance
+} )
 
 const cornerDataData = ( {
     date, type, startingBalance
@@ -90,11 +41,9 @@ const paidOutsData = ( {
     total, amounts
 } )
 
-function initialState() {
-    return { ...initialShiftData }
-}
 
 function reducer( state, action ) {
+    console.log( action )
     switch ( action.type ) {
         case 'updateCornerData': {
             const newState = { ...state, ...action.data }
@@ -104,15 +53,8 @@ function reducer( state, action ) {
         case 'updatePaidOuts': {
             const newState = { ...state, paidOuts: { amounts: [ ...action.data.amounts ] } }
 
-            const numberArray = newState.paidOuts.amounts
-                .filter( amount => amount !== '' )
-                .filter( amount => !isNaN( amount ) )
-                .map( amount => parseFloat( amount ) )
-
-            let newTotal = 0
-            numberArray.forEach( amount => newTotal += amount )
-
-            newState.paidOuts.total = parseFloat( newTotal ).toFixed( 2 )
+            const newTotal = _total( newState.paidOuts.amounts )
+            newState.paidOuts.total = newTotal
 
             return newState
         }
@@ -121,14 +63,51 @@ function reducer( state, action ) {
             const newState = { ...state }
             newState.employees.employees = [ ...action.data ]
 
-            newState.employees.totalCashSales = parseFloat( newState.employees.employees
-                .reduce( ( total, employee ) => total += parseFloat( employee.cashSales ), 0 )
-            ).toFixed( 2 )
+            const cashSalesArray = newState.employees.employees.map( e => e.cashSales )
+            const ccTipsArray = newState.employees.employees.map( e => e.ccTips )
 
-            newState.employees.totalTips = parseFloat( newState.employees.employees
-                .reduce( ( total, employee ) => total += parseFloat( employee.ccTips ), 0 )
-            ).toFixed( 2 )
-            console.log( newState )
+            newState.employees.totalCashSales = _total( cashSalesArray )
+            newState.employees.totalTips = _total( ccTipsArray )
+
+            return newState
+        }
+
+        case 'updateDrawerCount': {
+            const newState = { ...state }
+            const { denomination, value } = action.data
+            const whichone = action.start ? 'startDrawerCount' : 'endDrawerCount'
+
+            const focus = newState[ whichone ].counts[ denomination ]
+
+            focus[ 0 ] = value
+            focus[ 1 ] = parseFloat( value * focus[ 2 ] ).toFixed( 2 )
+
+            const sums = Object.keys( newState[ whichone ].counts )
+                .map( key => newState[ whichone ].counts[ key ][ 1 ] )
+
+            newState[ whichone ].balance = _total( sums )
+
+            return newState
+        }
+
+        case 'updateStartDrawerCount': {
+            const newState = { ...state }
+            const { denomination, value } = action.data
+
+            if ( isNaN(value) ) {
+                return state
+            }
+
+            const focus = newState.startDrawerCount.counts[ denomination ]
+
+            focus[ 0 ] = value
+            focus[ 1 ] = parseFloat( value * focus[ 2 ] ).toFixed( 2 )
+
+            const sums = Object.keys( newState.startDrawerCount.counts )
+                .map( key => newState.startDrawerCount.counts[ key ][ 1 ] )
+
+            newState.startDrawerCount.balance = _total( sums )
+
             return newState
         }
 
@@ -137,11 +116,23 @@ function reducer( state, action ) {
     }
 }
 
+function _total( arrayOfValues ) {
+    const numberArray = arrayOfValues
+        .filter( value => value !== '' )
+        .filter( value => !isNaN( value ) )
+        .map( value => parseFloat( value ) )
+
+    const total = parseFloat( numberArray
+        .reduce( ( total, value ) => total += value, 0 ) ).toFixed( 2 )
+
+    return total
+}
+
 
 
 export default function Shift() {
 
-    const [ state, dispatch ] = useReducer( reducer, initialState() )
+    const [ state, dispatch ] = useReducer( reducer, _initialState() )
 
     return (
         <div className={ styles.grid }>
@@ -165,8 +156,19 @@ export default function Shift() {
                 />
             </div>
             <div className={ styles.cuts } ></div>
-            <div className={ styles.startdrawer } ></div>
-            <div className={ styles.enddrawer } ></div>
+            <div className={ styles.startdrawer } >
+                <DrawerCount
+                    { ...startDrawerCountData( state ) }
+                    updateDataFn={ data => dispatch( { type: 'updateDrawerCount', start: true, data } ) }
+                />
+            </div>
+            <div className={ styles.enddrawer } >
+                <DrawerCount
+                    { ...endDrawerCountData( state ) }
+                    end={true}
+                    updateDataFn={ data => dispatch( { type: 'updateDrawerCount', data } ) }
+                />
+            </div>
             <div className={ styles.breakdown } >
                 <Breakdown { ...breakdownData( state ) } />
             </div>
