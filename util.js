@@ -11,17 +11,17 @@ const _initialEmployeeData = () => {
 
 const _initialDrawerCountData = () => {
     return {
-        pennies: [ 0, 0.00, .01 ],
-        nickles: [ 0, 0.00, .05 ],
-        dimes: [ 0, 0.00, .1 ],
-        quarters: [ 0, 0.00, .25 ],
-        ones: [ 0, 0.00, 1 ],
-        twos: [ 0, 0.00, 2 ],
-        fives: [ 0, 0.00, 5 ],
-        tens: [ 0, 0.00, 10 ],
-        twenties: [ 0, 0.00, 20 ],
-        fifties: [ 0, 0.00, 50 ],
-        hundreds: [ 0, 0.00, 100 ],
+        Pennies: [ 0, 0.00, .01 ],
+        Nickles: [ 0, 0.00, .05 ],
+        Dimes: [ 0, 0.00, .1 ],
+        Quarters: [ 0, 0.00, .25 ],
+        Ones: [ 0, 0.00, 1 ],
+        Twos: [ 0, 0.00, 2 ],
+        Fives: [ 0, 0.00, 5 ],
+        Tens: [ 0, 0.00, 10 ],
+        Twenties: [ 0, 0.00, 20 ],
+        Fifties: [ 0, 0.00, 50 ],
+        Hundreds: [ 0, 0.00, 100 ],
     }
 }
 

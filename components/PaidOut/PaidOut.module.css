@@ -7,6 +7,10 @@
     border-radius: 1px;
 }
 
+.inputContainer {
+    height: 80%;
+}
+
 .inputStyle {
     /* height: 20px; */
     width: 100%;
@@ -17,9 +21,27 @@
     background-color: rgb(50, 56, 50)
 }   
 
-.addBtn {
+.btnContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
     background-color: rgb(50 56, 50);
-    color: rgb(255, 0, 0);
+    /* color: rgb(255, 0, 0); */
     border-radius: 5px;
+
+    padding: 0 1em;
+
+    border: outset;
+}
+
+.btn:hover {
+    color: white;
+}
+
+.btn:active {
+    border: inset;
 }
 

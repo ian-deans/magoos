@@ -27,6 +27,8 @@ export default function PaidOut ( props ) {
     function showList () {
         return (
             <div className={ styles.rectangle } >
+                <div className={styles.inputContainer}>
+
                 { amounts.map( ( amount, i ) => (
                     <div key={ i }>
                         <input
@@ -35,13 +37,13 @@ export default function PaidOut ( props ) {
                             className={ styles.inputStyle } />
                     </div>
                 ) ) }
+                </div>
+
 
                 <div className={styles.btnContainer} >
-                    <button onClick={handleClick } className={styles.addBtn}> Add </button>
-                </div>
+                    <span onClick={handleClick } className={styles.btn}> Add </span>
                 
-                <div className={styles.container} >
-                    <button onClick={ del } className={styles.addBtn}> Delete </button>
+                    <span onClick={ del } className={styles.btn}> Delete </span>
                 </div>
 
                 <div>

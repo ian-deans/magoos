@@ -1,13 +1,11 @@
 
 .grid {
     display: grid;
-    grid-template-rows: 1fr 3fr 1fr 2fr 1fr;
+    grid-template-rows: 1fr 2fr 1fr;
     grid-template-columns: repeat(4, 1fr);
     grid-template-areas:
-        "dataone dataone dataone dataone"
-        "employees employees employees employees"
-        "paidouts paidouts cuts cuts"
-        "start-drawer start-drawer end-drawer end-drawer"
+        "dataone employees employees employees"
+        "paidouts . start-drawer end-drawer"
         "breakdown breakdown breakdown breakdown";
     
     justify-content: stretch;
