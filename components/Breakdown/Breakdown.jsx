@@ -16,6 +16,9 @@ export default function Breakdown ( props ) {
         expectedEndingBalance,
         endingBalance,
         startingBalance,
+        totalCashSales,
+        totalTips,
+        totalPaidOuts,
      } = props
 
 
@@ -27,16 +30,16 @@ export default function Breakdown ( props ) {
                 <div className={ styles.topGroup }>
 
                     <div className={ styles.box }>
-                        Starting Balance { startingBalance}
+                        Starting Balance: { startingBalance}
                     </div>
 
                     <div className={ styles.box }>
-                        Total Cash Sales
+                        Total Cash Sales: {totalCashSales}
                     </div>
 
                 </div>
                 <div className={ styles.box }>
-                    Total Cash { totalCash }
+                    Total Cash: { totalCash }
 
                 </div>
             </div>
@@ -47,17 +50,17 @@ export default function Breakdown ( props ) {
                 <div className={ styles.topGroup }>
 
                     <div className={ styles.box }>
-                        Total CC Tips
+                        Total CC Tips: { totalTips }
                     </div>
 
                     <div className={ styles.box }>
-                        Total Paidouts
+                        Total Paidouts: { totalPaidOuts }
                     </div>
 
                 </div>
            
                 <div className={ styles.box } >
-                    Total Deficit { totalDeficit}
+                    Total Deficit: { totalDeficit}
                 </div>
             </div>
            
@@ -71,13 +74,13 @@ export default function Breakdown ( props ) {
                     </div>
 
                     <div className={ styles.box }>
-                        Expected Ending Balance { expectedEndingBalance }
+                        Expected Ending Balance: { expectedEndingBalance }
                     </div>
 
                 </div>
            
                 <div className={ styles.box } >
-                    Ending Balance { endingBalance }
+                    Ending Balance: { endingBalance }
 
                 </div>
 
