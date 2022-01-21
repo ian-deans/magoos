@@ -33,7 +33,10 @@ export default function PaidOut ( props ) {
                 <div className={styles.btnContainer} >
                     <button onClick={handleClick } className={styles.addBtn}> Add </button>
                 </div>
-
+                
+                <div className={styles.container} >
+                    <button onClick={handleClick } className={styles.addBtn}> Delete </button>
+                </div>
 
                 <div>
                     <span>
