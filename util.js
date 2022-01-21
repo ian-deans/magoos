@@ -46,7 +46,7 @@ export function _initialState() {
         },
         paidOuts: {
             total: 0.0,
-            amounts: [ '' ]
+            amounts: [ '', '', '', '' ]
         },
         cuts: [],
         startDrawerCount: {
