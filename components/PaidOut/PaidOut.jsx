@@ -27,6 +27,7 @@ export default function PaidOut ( props ) {
     function showList () {
         return (
             <div className={ styles.rectangle } >
+                <h4>Paid Outs</h4>
                 <div className={styles.inputContainer}>
 
                 { amounts.map( ( amount, i ) => (

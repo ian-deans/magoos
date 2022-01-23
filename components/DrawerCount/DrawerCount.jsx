@@ -10,11 +10,9 @@ export default function DrawerCount( {
     end
 } ) {
 
-    console.log( counts )
 
     function handleChange(event, denomination) {
         const value = event.target.value
-        // console.log( 'handle change ', value, denomination)
         updateDataFn({value, denomination})
     }
 
@@ -27,7 +25,7 @@ export default function DrawerCount( {
                 <div key={ denomination + whichone } className={ styles.currencyCount }>
                     <span>{ denomination }</span>
                     <input 
-                        onChange={ (event) => handleChange( event, denomination ) }
+                        onChange={ event => handleChange( event, denomination ) }
                         className={ styles.input } 
                         value={ count } 
                     />

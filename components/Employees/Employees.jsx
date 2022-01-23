@@ -1,4 +1,5 @@
 import styles from './Employees.module.css'
+import { cx } from '../../util'
 
 export default function Employees( { totalCashSales, totalTips, employees, updateDataFn } ) {
 
@@ -28,6 +29,8 @@ export default function Employees( { totalCashSales, totalTips, employees, updat
     }
 
 
+
+
     return (
         <>
             <div className={ styles.table }>
@@ -38,14 +41,17 @@ export default function Employees( { totalCashSales, totalTips, employees, updat
                 </div>
                 { renderEmployeeRows( employees ) }
             </div>
-            <div className={ styles.footer }>
-                <div>
-                    <div>Total Cash Sales</div>
-                    <div>{totalCashSales}</div>
+            <div className={ cx(styles.footer, styles.row) }>
+                <div className={styles.footerblock}>
+                    
                 </div>
-                <div>
+                <div className={styles.footerblock}>
+                    <div>Total Cash Sales</div>
+                    <div>${totalCashSales}</div>
+                </div>
+                <div className={styles.footerblock}>
                     <div>Total Credit Card Tips</div>
-                    <div>{totalTips}</div>
+                    <div>${totalTips}</div>
                     </div>
             </div>
         </>

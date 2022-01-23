@@ -2,16 +2,15 @@
 .container {
     display: flex;
     flex-direction: column;
-
     border: 1px solid black;
 }
 
-.input {
+/* .input {
     width: 50px;
     text-align: center;
     outline: none;
     border: none;
-}
+} */
 
 .currencyCount {
     display: flex;

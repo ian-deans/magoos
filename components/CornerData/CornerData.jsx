@@ -22,9 +22,6 @@ export default function CornerData( { date, type, startingBalance, updateDataFn 
             <div className={styles.balanceContainer}>
                 <span>$</span>
                 <input
-                    type="number"
-                    min="1"
-                    step="any"
                     className={ styles.balanceInput}
                     value={ startingBalance }
                     onChange={ handleChange }

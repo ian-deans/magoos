@@ -5,7 +5,10 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
-  font-size: 22px;
+  font-size: 16px;
+
+  background-color: var(--background-color);
+  color: #fff;
 }
 
 a {
@@ -15,4 +18,20 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+input, select {
+  border: inset;
+  outline: none;
+  line-height: 1.25em;
+  text-align: center;
+  min-height: 2em;
+}
+
+:root {
+  --font-color: #fff;
+  --secondary-font-color: #eee;
+  --background-color: #555;
+
+  --border-outline: 1px solid var(--font-color); 
 }

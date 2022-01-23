@@ -1,14 +1,12 @@
 
 .table {
-    /* height: 100%; */
+    /* border: 1px solid black; */
     width: 100%;
-
-    /* border: 1px solid red; */
 
     display: flex;
     flex-direction: column;
 
-    padding: 0px;
+    /* margin: .2em; */
 }
 
 .row:first-child {
@@ -17,19 +15,31 @@
 
 .row {
     display: flex;
-    /* justify-content: space-around; */
+    justify-content: space-around;
     align-items: center;
     width: 100%;
     margin: 0;
-    padding: 0;
+    padding: .2em;
+
+    border: white inset 1px;
+
+    /* background-color: darkgrey; */
+}
+
+.footerblock {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .row span {
-    width: 33%;
+    /* width: 33%; */
 }
 
 .row input {
-    width: 33%;
+    width: 30%;
 }
 
 .footer {
