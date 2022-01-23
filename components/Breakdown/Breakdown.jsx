@@ -39,12 +39,26 @@ export default function Breakdown( props ) {
                     </div>
 
                     <div className={ styles.box }>
-                        Total Cash Sales: { totalCashSales }
+                        <div>
+                            Total Cash Sales
+                        </div>
+                        <div>
+                            ${ totalCashSales }
+                        </div>
                     </div>
 
                 </div>
+
                 <div className={ styles.box }>
-                    Total Cash: { totalCash }
+                    <div>
+                        <div>
+                            Total Cash:
+
+                        </div>
+                        <div>
+                            ${ totalCash }
+                        </div>
+                    </div>
 
                 </div>
             </div>
