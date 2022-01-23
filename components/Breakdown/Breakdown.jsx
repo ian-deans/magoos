@@ -27,59 +27,63 @@ export default function Breakdown( props ) {
         <div className={ styles.container }>
             <div className={ styles.group } >
 
-                <div className={ styles.topGroup }>
-
-                    <div className={ styles.box }>
-                        <div>
-                            Starting Balance:
-                        </div>
-                        <div>
-                            ${ startingBalance }
-                        </div>
+                <div className={ styles.box }>
+                    <div>
+                        Starting Balance:
                     </div>
-
-                    <div className={ styles.box }>
-                        <div>
-                            Total Cash Sales
-                        </div>
-                        <div>
-                            ${ totalCashSales }
-                        </div>
+                    <div>
+                        ${ startingBalance }
                     </div>
-
                 </div>
 
                 <div className={ styles.box }>
-                    <div>
-                        <div>
-                            Total Cash:
+                    <span>
+                        Total Cash Sales
+                    </span>
+                    <span>
+                        ${ totalCashSales }
+                    </span>
+                </div>
 
-                        </div>
-                        <div>
-                            ${ totalCash }
-                        </div>
-                    </div>
+
+                <div className={ styles.box }>
+                    <span>
+                        Total Cash:
+                    </span>
+                    <span>
+                        ${ totalCash }
+                    </span>
 
                 </div>
-            </div>
 
 
-            <div className={ styles.group } >
-
-                <div className={ styles.topGroup }>
-
-                    <div className={ styles.box }>
-                        Total CC Tips: { totalTips }
-                    </div>
-
-                    <div className={ styles.box }>
-                        Total Paidouts: { totalPaidOuts }
-                    </div>
-
+                <div className={ styles.box }>
+                <span>
+                        Total Tips:
+                    </span>
+                    <span>
+                        ${ totalTips }
+                    </span>
                 </div>
+
+                <div className={ styles.box }>
+                <span>
+                        Total Paid Outs:
+                    </span>
+                    <span>
+                        ${ totalPaidOuts }
+                    </span>
+                </div>
+
+                {/* </div> */ }
 
                 <div className={ styles.box } >
-                    Total Deficit: { totalDeficit }
+                <span>
+                        Total Deficit:
+                    </span>
+                    <span>
+                        ${ totalDeficit }
+                    </span>
                 </div>
             </div>
 

@@ -44,11 +44,13 @@
 .dataone {
     grid-area: dataone;
      /* background-color: red;  */
+     min-width: 20vw;
 }
 
 .employees {
     grid-area: employees;
     /* background-color: blue; */
+    min-width: 45vw;
 }
 
 .paidouts {
@@ -83,5 +85,5 @@
 .breakdown {
     padding: .5em;
     /* box-shadow: 0.5em 0.2em 1.5em #000; */
-    border: var(--border-outline);
+    /* border: var(--border-outline); */
 }
