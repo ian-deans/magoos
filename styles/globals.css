@@ -26,6 +26,7 @@ input, select {
   line-height: 1.25em;
   text-align: center;
   min-height: 2em;
+  min-width: 4em;
 }
 
 :root {

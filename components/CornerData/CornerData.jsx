@@ -20,7 +20,7 @@ export default function CornerData( { date, type, startingBalance, updateDataFn 
                 <option>Close</option>
             </select>
             <div className={styles.balanceContainer}>
-                <span>$</span>
+                {/* <span>$</span> */}
                 <input
                     className={ styles.balanceInput}
                     value={ startingBalance }
