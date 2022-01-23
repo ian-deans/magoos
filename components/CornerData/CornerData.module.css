@@ -2,7 +2,7 @@
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-start;
 
     height: 100%;
     width: 100%;
@@ -16,9 +16,9 @@
 }
 
 .balanceInput {
-    border: none;
+    /* border: none; */
 }
 
 .balanceInput:focus {
-    outline: none;
+    /* outline: none; */
 }

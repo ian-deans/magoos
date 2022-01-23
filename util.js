@@ -68,3 +68,108 @@ export function _initialState() {
     }
 }
 
+export function reducer( state, action ) {
+    console.log( action )
+    switch ( action.type ) {
+        case 'updateCornerData': {
+            const newState = { ...state, ...action.data }
+            newState.totalCash = _calcTotalCash( _getCashValues( newState ) )
+
+            return newState
+        }
+
+        case 'updatePaidOuts': {
+            const newState = { ...state, paidOuts: { amounts: [ ...action.data.amounts ] } }
+
+            newState.paidOuts.total = _total( newState.paidOuts.amounts )
+            newState.totalDeficit = _calcTotalDeficit( _getDeficitValues( newState ) )
+
+            return newState
+        }
+
+        case 'updateEmployees': {
+            const newState = { ...state }
+            newState.employees.employees = [ ...action.data ]
+
+            const cashSalesArray = newState.employees.employees.map( e => e.cashSales )
+            const ccTipsArray = newState.employees.employees.map( e => e.ccTips )
+
+            newState.employees.totalCashSales = _total( cashSalesArray )
+            newState.employees.totalTips = _total( ccTipsArray )
+
+            newState.totalDeficit = _calcTotalDeficit( _getDeficitValues( newState ) )
+            newState.totalCash = _calcTotalCash( _getCashValues( newState ) )
+            newState.expectedEndingBalance = _calcExpectedEndingBalance( _getExpectedEndingBalanceValues( newState ) )
+
+            return newState
+        }
+
+        case 'updateDrawerCount': {
+            const newState = { ...state }
+            const { denomination, value } = action.data
+            const whichone = action.start ? 'startDrawerCount' : 'endDrawerCount'
+
+            const focus = newState[ whichone ].counts[ denomination ]
+
+            focus[ 0 ] = value
+            focus[ 1 ] = parseFloat( value * focus[ 2 ] ).toFixed( 2 )
+
+            const sums = Object.keys( newState[ whichone ].counts )
+                .map( key => newState[ whichone ].counts[ key ][ 1 ] )
+
+            newState[ whichone ].balance = _total( sums )
+
+            if ( !action.start ) {
+                newState.endingBalance = newState[ whichone ].balance
+            }
+
+            return newState
+        }
+
+        default:
+            return state;
+    }
+}
+
+function _getExpectedEndingBalanceValues( { totalCash, totalDeficit } ) {
+    return { totalCash, totalDeficit }
+}
+
+function _calcExpectedEndingBalance( { totalCash, totalDeficit } ) {
+    const newExpectedEndingBalance = parseFloat( totalCash ) - parseFloat( totalDeficit )
+    return parseFloat( newExpectedEndingBalance ).toFixed( 2 )
+
+}
+
+function _getDeficitValues( { paidOuts: { total: totalPaidOuts }, employees: { totalTips } } ) {
+    return { totalPaidOuts, totalTips }
+}
+
+function _calcTotalDeficit( { totalPaidOuts, totalTips } ) {
+    const newDeficit = parseFloat( totalPaidOuts ) + parseFloat( totalTips )
+    return parseFloat( newDeficit ).toFixed( 2 )
+}
+
+function _getCashValues( { startingBalance, employees: { totalCashSales } } ) {
+    return { startingBalance, totalCashSales }
+}
+
+function _calcTotalCash( { totalCashSales, startingBalance } ) {
+    const newTotalCash = parseFloat( totalCashSales ) + parseFloat( startingBalance )
+    return parseFloat( newTotalCash ).toFixed( 2 )
+}
+
+
+function _total( arrayOfValues ) {
+    const numberArray = arrayOfValues
+        .filter( value => value !== '' )
+        .filter( value => !isNaN( value ) )
+        .map( value => parseFloat( value ) )
+
+    const total = parseFloat( numberArray
+        .reduce( ( total, value ) => total += value, 0 ) ).toFixed( 2 )
+
+    return total
+}
+
+export const cx = ( ...classNames ) => classNames.join( ' ' )

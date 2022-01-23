@@ -7,10 +7,10 @@ const props = {
     exBalance: 545
 }
 
-export default function Breakdown ( props ) {
+export default function Breakdown( props ) {
 
     // const { tCash, tDeficit, exBalance, stBalance, endBalance, tStBalance, tCSales, tCcTips, tPo } = props
-    const {  
+    const {
         totalCash,
         totalDeficit,
         expectedEndingBalance,
@@ -19,7 +19,7 @@ export default function Breakdown ( props ) {
         totalCashSales,
         totalTips,
         totalPaidOuts,
-     } = props
+    } = props
 
 
 
@@ -30,11 +30,16 @@ export default function Breakdown ( props ) {
                 <div className={ styles.topGroup }>
 
                     <div className={ styles.box }>
-                        Starting Balance: { startingBalance}
+                        <div>
+                            Starting Balance:
+                        </div>
+                        <div>
+                            ${ startingBalance }
+                        </div>
                     </div>
 
                     <div className={ styles.box }>
-                        Total Cash Sales: {totalCashSales}
+                        Total Cash Sales: { totalCashSales }
                     </div>
 
                 </div>
@@ -43,8 +48,8 @@ export default function Breakdown ( props ) {
 
                 </div>
             </div>
-           
-           
+
+
             <div className={ styles.group } >
 
                 <div className={ styles.topGroup }>
@@ -58,19 +63,19 @@ export default function Breakdown ( props ) {
                     </div>
 
                 </div>
-           
+
                 <div className={ styles.box } >
-                    Total Deficit: { totalDeficit}
+                    Total Deficit: { totalDeficit }
                 </div>
             </div>
-           
-           
+
+
             <div className={ styles.group } >
 
                 <div className={ styles.topGroup }>
 
                     <div className={ styles.box }>
-                        
+
                     </div>
 
                     <div className={ styles.box }>
@@ -78,7 +83,7 @@ export default function Breakdown ( props ) {
                     </div>
 
                 </div>
-           
+
                 <div className={ styles.box } >
                     Ending Balance: { endingBalance }
 

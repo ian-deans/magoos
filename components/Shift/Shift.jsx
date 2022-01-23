@@ -1,6 +1,6 @@
 import { useReducer } from 'react'
 import styles from './Shift.module.css'
-import { _initialState } from '../../util'
+import { _initialState, reducer } from '../../util'
 
 import { Breakdown, CornerData, DrawerCount, Employees, PaidOut } from '..'
 
@@ -46,93 +46,7 @@ const paidOutsData = ( {
     total, amounts
 } )
 
-
-function reducer( state, action ) {
-    console.log( action )
-    switch ( action.type ) {
-        case 'updateCornerData': {
-            const newState = { ...state, ...action.data }
-            return newState
-        }
-
-        case 'updatePaidOuts': {
-            const newState = { ...state, paidOuts: { amounts: [ ...action.data.amounts ] } }
-
-            const newTotal = _total( newState.paidOuts.amounts )
-            newState.paidOuts.total = newTotal
-
-            return newState
-        }
-
-        case 'updateEmployees': {
-            const newState = { ...state }
-            newState.employees.employees = [ ...action.data ]
-
-            const cashSalesArray = newState.employees.employees.map( e => e.cashSales )
-            const ccTipsArray = newState.employees.employees.map( e => e.ccTips )
-
-            newState.employees.totalCashSales = _total( cashSalesArray )
-            newState.employees.totalTips = _total( ccTipsArray )
-
-            return newState
-        }
-
-        case 'updateDrawerCount': {
-            const newState = { ...state }
-            const { denomination, value } = action.data
-            const whichone = action.start ? 'startDrawerCount' : 'endDrawerCount'
-
-            const focus = newState[ whichone ].counts[ denomination ]
-
-            focus[ 0 ] = value
-            focus[ 1 ] = parseFloat( value * focus[ 2 ] ).toFixed( 2 )
-
-            const sums = Object.keys( newState[ whichone ].counts )
-                .map( key => newState[ whichone ].counts[ key ][ 1 ] )
-
-            newState[ whichone ].balance = _total( sums )
-
-            return newState
-        }
-
-        case 'updateStartDrawerCount': {
-            const newState = { ...state }
-            const { denomination, value } = action.data
-
-            if ( isNaN(value) ) {
-                return state
-            }
-
-            const focus = newState.startDrawerCount.counts[ denomination ]
-
-            focus[ 0 ] = value
-            focus[ 1 ] = parseFloat( value * focus[ 2 ] ).toFixed( 2 )
-
-            const sums = Object.keys( newState.startDrawerCount.counts )
-                .map( key => newState.startDrawerCount.counts[ key ][ 1 ] )
-
-            newState.startDrawerCount.balance = _total( sums )
-
-            return newState
-        }
-
-        default:
-            return state;
-    }
-}
-
-function _total( arrayOfValues ) {
-    const numberArray = arrayOfValues
-        .filter( value => value !== '' )
-        .filter( value => !isNaN( value ) )
-        .map( value => parseFloat( value ) )
-
-    const total = parseFloat( numberArray
-        .reduce( ( total, value ) => total += value, 0 ) ).toFixed( 2 )
-
-    return total
-}
-
+const cx = (...classNames) => classNames.join(' ')
 
 
 export default function Shift() {
@@ -142,7 +56,7 @@ export default function Shift() {
     return (
         <div className={ styles.grid }>
 
-            <div className={ styles.dataone } >
+            <div className={ cx(styles.dataone, styles.area ) } >
                 <CornerData
                     { ...cornerDataData( state ) }
                     updateDataFn={ data => dispatch( { type: 'updateCornerData', data } ) }
@@ -162,10 +76,10 @@ export default function Shift() {
             </div>
             <div className={ styles.cuts } ></div>
             <div className={ styles.startdrawer } >
-                <DrawerCount
+                {/* <DrawerCount
                     { ...startDrawerCountData( state ) }
                     updateDataFn={ data => dispatch( { type: 'updateDrawerCount', start: true, data } ) }
-                />
+                /> */}
             </div>
             <div className={ styles.enddrawer } >
                 <DrawerCount
