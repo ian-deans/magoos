@@ -26,8 +26,6 @@ const _initialDrawerCountData = () => {
 }
 
 
-
-
 export function _initialState() {
 
     return {
@@ -231,8 +229,13 @@ export function getState() {
         return _initialState()
     } else {
 
-        const state = localStorage.getItem('checkout')
-        return state === undefined ? _initialState() : JSON.parse(state)
+        const state = localStorage.getItem( 'checkout' )
+
+        if ( state ) {
+            return JSON.parse( state )
+        }
+
+        return _initialState()
 
     }
 
