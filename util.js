@@ -74,6 +74,7 @@ export function reducer( state, action ) {
         case 'updateCornerData': {
             const newState = { ...state, ...action.data }
             newState.totalCash = _calcTotalCash( _getCashValues( newState ) )
+            newState.expectedEndingBalance = _calcExpectedEndingBalance( _getExpectedEndingBalanceValues( newState ) )
 
             return newState
         }
@@ -83,24 +84,15 @@ export function reducer( state, action ) {
 
             newState.paidOuts.total = _total( newState.paidOuts.amounts )
             newState.totalDeficit = _calcTotalDeficit( _getDeficitValues( newState ) )
+            newState.expectedEndingBalance = _calcExpectedEndingBalance( _getExpectedEndingBalanceValues( newState ) )
+
 
             return newState
         }
 
         case 'updateEmployees': {
-            const newState = { ...state }
-            newState.employees.employees = [ ...action.data ]
-
-            const cashSalesArray = newState.employees.employees.map( e => e.cashSales )
-            const ccTipsArray = newState.employees.employees.map( e => e.ccTips )
-
-            newState.employees.totalCashSales = _total( cashSalesArray )
-            newState.employees.totalTips = _total( ccTipsArray )
-
-            newState.totalDeficit = _calcTotalDeficit( _getDeficitValues( newState ) )
-            newState.totalCash = _calcTotalCash( _getCashValues( newState ) )
-            newState.expectedEndingBalance = _calcExpectedEndingBalance( _getExpectedEndingBalanceValues( newState ) )
-
+            const newState = _updateEmployeeData( { ...state }, action )
+            _saveState( newState )
             return newState
         }
 
@@ -129,6 +121,22 @@ export function reducer( state, action ) {
         default:
             return state;
     }
+}
+
+function _updateEmployeeData( newState, action ) {
+    newState.employees.employees = [ ...action.data ]
+
+    const cashSalesArray = newState.employees.employees.map( e => e.cashSales )
+    const ccTipsArray = newState.employees.employees.map( e => e.ccTips )
+
+    newState.employees.totalCashSales = _total( cashSalesArray )
+    newState.employees.totalTips = _total( ccTipsArray )
+
+    newState.totalDeficit = _calcTotalDeficit( _getDeficitValues( newState ) )
+    newState.totalCash = _calcTotalCash( _getCashValues( newState ) )
+    newState.expectedEndingBalance = _calcExpectedEndingBalance( _getExpectedEndingBalanceValues( newState ) )
+
+    return newState
 }
 
 function _getExpectedEndingBalanceValues( { totalCash, totalDeficit } ) {
@@ -173,3 +181,61 @@ function _total( arrayOfValues ) {
 }
 
 export const cx = ( ...classNames ) => classNames.join( ' ' )
+
+
+export const dataSelector = {
+    startDrawer: function ( { startDrawerCount, startingBalance } ) {
+        return { ...startDrawerCount, expectedBalance: startingBalance }
+    },
+    endDrawer: function ( { endDrawerCount, expectedEndingBalance } ) {
+        return { ...endDrawerCount, expectedBalance: expectedEndingBalance }
+    },
+    cornerData: function ( { date, type, startingBalance } ) {
+        return { date, type, startingBalance }
+    },
+    breakdown: function ( {
+        totalCash,
+        totalDeficit,
+        expectedEndingBalance,
+        endingBalance,
+        startingBalance,
+        employees: { totalCashSales, totalTips },
+        paidOuts: { total: totalPaidOuts }
+    } ) {
+        return {
+            totalCash,
+            totalDeficit,
+            expectedEndingBalance,
+            endingBalance,
+            startingBalance,
+            totalCashSales,
+            totalTips,
+            totalPaidOuts
+        }
+    },
+    employees: function ( { employees: { totalTips, totalCashSales, employees } } ) {
+        return { totalTips, totalCashSales, employees }
+    },
+    paidOuts: function ( { paidOuts: { total, amounts } } ) {
+        return { total, amounts }
+    },
+}
+
+function _saveState( data ) {
+    localStorage.setItem( 'checkout', JSON.stringify( data ) )
+}
+
+export function getState() {
+
+    if ( typeof window === 'undefined' ) {
+        return _initialState()
+    } else {
+
+        const state = localStorage.getItem('checkout')
+        return state === undefined ? _initialState() : JSON.parse(state)
+
+    }
+
+
+
+}
