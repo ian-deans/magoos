@@ -29,13 +29,12 @@ export default function Shift() {
                     updateDataFn={ data => dispatch( { type: 'updatePaidOuts', data } ) }
                 />
             </div>
-            <div className={ styles.cuts } ></div>
-            <div className={ styles.startdrawer } >
-                {/* <DrawerCount
+            {/* <div className={ styles.startdrawer } >
+                <DrawerCount
                     { ...dataSelector.startDrawer( state ) }
                     updateDataFn={ data => dispatch( { type: 'updateDrawerCount', start: true, data } ) }
-                /> */}
-            </div>
+                />
+            </div> */}
             <div className={ styles.enddrawer } >
                 <DrawerCount
                     { ...dataSelector.endDrawer( state ) }
