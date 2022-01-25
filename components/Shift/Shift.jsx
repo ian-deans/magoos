@@ -1,95 +1,50 @@
 import { useReducer } from 'react'
 import styles from './Shift.module.css'
-import { _initialState, reducer } from '../../util'
+import { _initialState, reducer, cx, dataSelector, getState } from '../../util'
 
 import { Breakdown, CornerData, DrawerCount, Employees, PaidOut } from '..'
 
-const endDrawerCountData = ( { endDrawerCount, expectedEndingBalance } ) => ( {
-    ...endDrawerCount, expectedBalance: expectedEndingBalance
-} )
-const startDrawerCountData = ( { startDrawerCount, startingBalance } ) => ( {
-    ...startDrawerCount, expectedBalance: startingBalance
-} )
-
-const cornerDataData = ( {
-    date, type, startingBalance
-} ) => ( {
-    date, type, startingBalance
-} )
-
-const breakdownData = ( {
-    totalCash,
-    totalDeficit,
-    expectedEndingBalance,
-    endingBalance,
-    startingBalance,
-    employees: { totalCashSales, totalTips },
-    paidOuts: { total: totalPaidOuts }
-} ) => ( {
-    totalCash,
-    totalDeficit,
-    expectedEndingBalance,
-    endingBalance,
-    startingBalance,
-    totalCashSales,
-    totalTips,
-    totalPaidOuts
-} )
-
-function employeeData( { employees: { totalTips, totalCashSales, employees } } ) {
-    return { totalTips, totalCashSales, employees }
-}
-
-const paidOutsData = ( {
-    paidOuts: { total, amounts }
-} ) => ( {
-    total, amounts
-} )
-
-const cx = (...classNames) => classNames.join(' ')
-
-
 export default function Shift() {
 
-    const [ state, dispatch ] = useReducer( reducer, _initialState() )
+    const [ state, dispatch ] = useReducer( reducer, getState() )
 
     return (
         <div className={ styles.grid }>
 
             <div className={ cx(styles.dataone, styles.area ) } >
                 <CornerData
-                    { ...cornerDataData( state ) }
+                    { ...dataSelector.cornerData( state ) }
                     updateDataFn={ data => dispatch( { type: 'updateCornerData', data } ) }
                 />
             </div>
             <div className={ styles.employees } >
                 <Employees
-                    { ...employeeData( state ) }
+                    { ...dataSelector.employees( state ) }
                     updateDataFn={ data => dispatch( { type: 'updateEmployees', data } ) }
                 />
             </div>
             <div className={ styles.paidouts } >
                 <PaidOut
-                    { ...paidOutsData( state ) }
+                    { ...dataSelector.paidOuts( state ) }
                     updateDataFn={ data => dispatch( { type: 'updatePaidOuts', data } ) }
                 />
             </div>
             <div className={ styles.cuts } ></div>
             <div className={ styles.startdrawer } >
                 {/* <DrawerCount
-                    { ...startDrawerCountData( state ) }
+                    { ...dataSelector.startDrawer( state ) }
                     updateDataFn={ data => dispatch( { type: 'updateDrawerCount', start: true, data } ) }
                 /> */}
             </div>
             <div className={ styles.enddrawer } >
                 <DrawerCount
-                    { ...endDrawerCountData( state ) }
+                    { ...dataSelector.endDrawer( state ) }
                     end={true}
                     updateDataFn={ data => dispatch( { type: 'updateDrawerCount', data } ) }
                 />
             </div>
             <div className={ styles.breakdown } >
-                <Breakdown { ...breakdownData( state ) } />
+                <Breakdown { ...dataSelector.breakdown( state ) } />
             </div>
         </div>
     )
