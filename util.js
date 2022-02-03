@@ -78,13 +78,9 @@ export function reducer( state, action ) {
         }
 
         case 'updatePaidOuts': {
-            const newState = { ...state, paidOuts: { amounts: [ ...action.data.amounts ] } }
+            const newState = _updatePaidOuts({ ...state, paidOuts: { amounts: [ ...action.data.amounts ] } })
 
-            newState.paidOuts.total = _total( newState.paidOuts.amounts )
-            newState.totalDeficit = _calcTotalDeficit( _getDeficitValues( newState ) )
-            newState.expectedEndingBalance = _calcExpectedEndingBalance( _getExpectedEndingBalanceValues( newState ) )
-
-
+            _saveState( newState )
             return newState
         }
 
@@ -119,6 +115,12 @@ export function reducer( state, action ) {
         default:
             return state;
     }
+}
+
+function _updatePaidOuts( newState ) {
+    newState.paidOuts.total = _total( newState.paidOuts.amounts )
+    newState.totalDeficit = _calcTotalDeficit( _getDeficitValues( newState ) )
+    newState.expectedEndingBalance = _calcExpectedEndingBalance( _getExpectedEndingBalanceValues( newState ) )
 }
 
 function _updateEmployeeData( newState, action ) {

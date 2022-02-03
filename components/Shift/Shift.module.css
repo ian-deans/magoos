@@ -9,8 +9,9 @@
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto;
     grid-template-areas:
-        "dataone employees employees paidouts"
-        "end-drawer end-drawer breakdown breakdown";
+        "dataone employees employees employees"
+        "paidouts employees employees employees"
+        "breakdown breakdown end-drawer end-drawer";
     
     column-gap: 1em;
     row-gap: 1em;
