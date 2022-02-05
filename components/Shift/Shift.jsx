@@ -1,12 +1,13 @@
-import { useReducer } from 'react'
+import { useReducer, useEffect } from 'react'
 import styles from './Shift.module.css'
 import { _initialState, reducer, cx, dataSelector, getState } from '../../util'
 
-import { Breakdown, CornerData, DrawerCount, Employees, PaidOut } from '..'
+import { Breakdown, CornerData, DrawerCount, Employees, PaidOut } from 'components'
 
 export default function Shift() {
 
     const [ state, dispatch ] = useReducer( reducer, getState() )
+
 
     return (
         <div className={ styles.grid }>

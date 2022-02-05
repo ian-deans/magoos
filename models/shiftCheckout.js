@@ -1,44 +1,45 @@
 import mongoose from 'mongoose'
+import moment from 'moment'
 
 const ShiftCheckoutSchema = new mongoose.Schema( {
-    date: String,
-    type: String,
-    totalCash: Number,
-    totalDeficit: Number,
-    expectedEndingBalance: Number,
-    endingBalance: Number,
-    drawerVariance: Number, //* would rather do this than keep the variance in the drawer count
-    startingBalance: Number,
+    date: { type: String, default: moment().format( 'dddd MMMM Do, YYYY' ) },
+    type: { type: String, default: 'open' },
+    totalCash: { type: Number, default: 0 },
+    totalDeficit: { type: Number, default: 0 },
+    expectedEndingBalance: { type: Number, default: 0 },
+    endingBalance: { type: Number, default: 0 },
+    drawerVariance: { type: Number, default: 0 }, //* would rather do this than keep the variance in the drawer count
+    startingBalance: { type: Number, default: 0 },
     employees: {
-        totalCashSales: Number,
-        totalTips: Number,
+        totalCashSales: { type: Number, default: 0 },
+        totalTips: { type: Number, default: 0 },
         employees: [
             {
                 name: String,
-                cashSales: Number,
-                tips: Number,
+                cashSales: { type: Number, default: 0 },
+                tips: { type: Number, default: 0 },
             }
         ]
     },
     paidOuts: {
-        total: Number,
-        amounts: [ Number ],
+        total: { type: Number, default: 0 },
+        amounts: { type: [ Number ], default: [ 0, 0, 0, 0 ] },
     },
     drawerCount: {
-        balance: Number,
-        variance: Number, //* probably gonna remove this
+        balance: { type: Number, default: 0 },
+        variance: { type: Number, default: 0 }, //* probably gonna remove this
         counts: {
-            Pennies: [ Number ],
-            Nickles: [ Number ],
-            Dimes: [ Number ],
-            Quarters: [ Number ],
-            Ones: [ Number ],
-            Twos: [ Number ],
-            Fives: [ Number ],
-            Tens: [ Number ],
-            Twenties: [ Number ],
-            Fifties: [ Number ],
-            Hundreds: [ Number ],
+            Pennies: { type: [ Number ], default: [ 0, 0.00, .01 ] },
+            Nickles: { type: [ Number ], default: [ 0, 0.00, .05 ] },
+            Dimes: { type: [ Number ], default: [ 0, 0.00, .1 ] },
+            Quarters: { type: [ Number ], default: [ 0, 0.00, .25 ] },
+            Ones: { type: [ Number ], default: [ 0, 0.00, 1 ] },
+            Twos: { type: [ Number ], default: [ 0, 0.00, 2 ] },
+            Fives: { type: [ Number ], default: [ 0, 0.00, 5 ] },
+            Tens: { type: [ Number ], default: [ 0, 0.00, 10 ] },
+            Twenties: { type: [ Number ], default: [ 0, 0.00, 20 ] },
+            Fifties: { type: [ Number ], default: [ 0, 0.00, 50 ] },
+            Hundreds: { type: [ Number ], default: [ 0, 0.00, 100 ] },
         }
     }
 } )
