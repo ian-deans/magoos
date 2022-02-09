@@ -97,13 +97,13 @@ export default function Breakdown( props ) {
                     </div>
 
                     <div className={ styles.box }>
-                        Expected Ending Balance: { expectedEndingBalance }
+                        Expected Ending Balance: ${ expectedEndingBalance }
                     </div>
 
                 </div>
 
                 <div className={ styles.box } >
-                    Ending Balance: { endingBalance }
+                    Ending Balance: ${ endingBalance }
 
                 </div>
 

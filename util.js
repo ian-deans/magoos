@@ -25,6 +25,19 @@ const _initialDrawerCountData = () => {
     }
 }
 
+const currencyMultipliers = {
+    Pennies: .01,
+    Nickles: .05,
+    Dimes: .1,
+    Ones: 1,
+    Twos: 2,
+    Fives: 5,
+    Tens: 10,
+    Twenties: 20,
+    Fifties: 50,
+    Hundreds: 100,
+}
+
 
 export function _initialState() {
 
@@ -78,13 +91,9 @@ export function reducer( state, action ) {
         }
 
         case 'updatePaidOuts': {
-            const newState = { ...state, paidOuts: { amounts: [ ...action.data.amounts ] } }
+            const newState = _updatePaidOuts({ ...state, paidOuts: { amounts: [ ...action.data.amounts ] } })
 
-            newState.paidOuts.total = _total( newState.paidOuts.amounts )
-            newState.totalDeficit = _calcTotalDeficit( _getDeficitValues( newState ) )
-            newState.expectedEndingBalance = _calcExpectedEndingBalance( _getExpectedEndingBalanceValues( newState ) )
-
-
+            _saveState( newState )
             return newState
         }
 
@@ -119,6 +128,12 @@ export function reducer( state, action ) {
         default:
             return state;
     }
+}
+
+function _updatePaidOuts( newState ) {
+    newState.paidOuts.total = _total( newState.paidOuts.amounts )
+    newState.totalDeficit = _calcTotalDeficit( _getDeficitValues( newState ) )
+    newState.expectedEndingBalance = _calcExpectedEndingBalance( _getExpectedEndingBalanceValues( newState ) )
 }
 
 function _updateEmployeeData( newState, action ) {
