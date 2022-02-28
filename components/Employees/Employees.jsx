@@ -68,7 +68,7 @@ function EmployeeRow( { name, cashSales, ccTips, index, handleChange } ) {
                 <Input
                     disableUnderline={ true }
                     value={ name }
-                    onChange={ handleChange }
+                    // onChange={ handleChange }
                     onChange={ ( { target: { value } } ) => handleChange( { value, field: 'name', index } ) }
                 />
             </TableCell>
@@ -85,8 +85,8 @@ function EmployeeRow( { name, cashSales, ccTips, index, handleChange } ) {
                 <EmployeeNumberInput
                     value={ccTips}
                     handleChange={handleChange}
-                    field="ccTips"
                     index={index}                
+                    field="ccTips"
                 />
             </TableCell>
         </TableRow>
