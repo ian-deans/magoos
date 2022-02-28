@@ -265,7 +265,7 @@ export function getState() {
         lg(state)
         const initialState = _initialState()
         _saveState( initialState )
-        return initalState
+        return initialState
     }
 
     lg('state is valid, parsing...')
