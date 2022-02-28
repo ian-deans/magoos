@@ -4,24 +4,24 @@ import moment from 'moment'
 const _initialEmployeeData = () => {
     return {
         name: '',
-        cashSales: 0,
-        ccTips: 0,
+        cashSales: '',
+        ccTips: '',
     }
 }
 
 const _initialDrawerCountData = () => {
     return {
-        Pennies: [ 0, 0.00, .01 ],
-        Nickles: [ 0, 0.00, .05 ],
-        Dimes: [ 0, 0.00, .1 ],
-        Quarters: [ 0, 0.00, .25 ],
-        Ones: [ 0, 0.00, 1 ],
-        Twos: [ 0, 0.00, 2 ],
-        Fives: [ 0, 0.00, 5 ],
-        Tens: [ 0, 0.00, 10 ],
-        Twenties: [ 0, 0.00, 20 ],
-        Fifties: [ 0, 0.00, 50 ],
-        Hundreds: [ 0, 0.00, 100 ],
+        Pennies: [ '', 0.00, .01 ],
+        Nickles: [ '', 0.00, .05 ],
+        Dimes: [ '', 0.00, .1 ],
+        Quarters: [ '', 0.00, .25 ],
+        Ones: [ '', 0.00, 1 ],
+        Twos: [ '', 0.00, 2 ],
+        Fives: [ '', 0.00, 5 ],
+        Tens: [ '', 0.00, 10 ],
+        Twenties: [ '', 0.00, 20 ],
+        Fifties: [ '', 0.00, 50 ],
+        Hundreds: [ '', 0.00, 100 ],
     }
 }
 
@@ -46,8 +46,8 @@ export function _initialState() {
         type: 'Open',
 
         employees: {
-            totalCashSales: 0,
-            totalTips: 0,
+            totalCashSales: '',
+            totalTips: '',
             employees: [
                 _initialEmployeeData(),
                 _initialEmployeeData(),
@@ -75,7 +75,7 @@ export function _initialState() {
         totalDeficit: 0,    //? the sum of all employees tips and all paid outs
         expectedEndingBalance: 0,   //? the result of total cash - total deficit
         endingBalance: 0,   //? the balance of the end of shift drawer count
-        startingBalance: 0,    //? from user input, is also the expected balance of the start of shift drawer count
+        startingBalance: '',    //? from user input, is also the expected balance of the start of shift drawer count
     }
 }
 
@@ -91,7 +91,7 @@ export function reducer( state, action ) {
         }
 
         case 'updatePaidOuts': {
-            const newState = _updatePaidOuts({ ...state, paidOuts: { amounts: [ ...action.data.amounts ] } })
+            const newState = _updatePaidOuts( { ...state, paidOuts: { amounts: [ ...action.data.amounts ] } } )
 
             _saveState( newState )
             return newState
@@ -134,6 +134,7 @@ function _updatePaidOuts( newState ) {
     newState.paidOuts.total = _total( newState.paidOuts.amounts )
     newState.totalDeficit = _calcTotalDeficit( _getDeficitValues( newState ) )
     newState.expectedEndingBalance = _calcExpectedEndingBalance( _getExpectedEndingBalanceValues( newState ) )
+    return newState
 }
 
 function _updateEmployeeData( newState, action ) {
@@ -183,8 +184,9 @@ function _calcTotalCash( { totalCashSales, startingBalance } ) {
 
 function _total( arrayOfValues ) {
     const numberArray = arrayOfValues
-        .filter( value => value !== '' )
-        .filter( value => !isNaN( value ) )
+        // .filter( value => value !== '' )
+        // .filter( value => !isNaN( value ) )
+        .filter( Boolean )
         .map( value => parseFloat( value ) )
 
     const total = parseFloat( numberArray
@@ -235,25 +237,49 @@ export const dataSelector = {
 }
 
 function _saveState( data ) {
+    lg( 'Attempting to save state in Local Storage...')
+    lg( data )
+    if ( !data || data === 'undefiend' ) {
+        //TODO: Need some kind of error throwing or logging here
+        //TODO: cuz if state is undefined at this point, some shit went wrong
+        return
+    }
     localStorage.setItem( 'checkout', JSON.stringify( data ) )
 }
 
 export function getState() {
 
+    lg( 'getting state...' )
     if ( typeof window === 'undefined' ) {
+        lg( 'server side, returning initial state' )
         return _initialState()
-    } else {
-
-        const state = localStorage.getItem( 'checkout' )
-
-        if ( state ) {
-            return JSON.parse( state )
-        }
-
-        return _initialState()
-
     }
 
 
+    lg( 'client side, checking state validity...' )
+    const state = localStorage.getItem( 'checkout' )
 
+    
+    if ( !state || state === 'undefined' ) {
+        lg( 'state is invalid' )
+        lg(state)
+        const initialState = _initialState()
+        _saveState( initialState )
+        return initalState
+    }
+
+    lg('state is valid, parsing...')
+    const loadedState = JSON.parse( state )
+
+    if ( loadedState.date !== moment().format( 'dddd MMMM Do, YYYY' ) ) {
+        return _initialState()
+    }
+
+    return loadedState
+
+
+}
+
+function lg( msg ) {
+    console.log( msg )
 }

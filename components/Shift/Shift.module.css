@@ -6,13 +6,14 @@
 .grid {
     
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
     grid-template-areas:
-        "dataone dataone paidouts paidouts"
-        "employees employees employees employees"
-        "end-drawer end-drawer end-drawer end-drawer"
-        "breakdown breakdown breakdown breakdown";
+        "dataone dataone "
+        "employees employees"
+        "paidouts paidouts"
+        "end-drawer end-drawer"
+        "breakdown breakdown";
     
     column-gap: 1em;
     row-gap: 1em;

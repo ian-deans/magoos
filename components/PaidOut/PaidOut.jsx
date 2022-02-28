@@ -1,10 +1,10 @@
+import { Card, Input, InputAdornment } from "@mui/material"
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import styles from './PaidOut.module.css'
 
-export default function PaidOut ( props ) {
+export default function PaidOut( { total, amounts, updateDataFn } ) {
 
-    const { total, amounts, updateDataFn } = props
-
-    function handleChange ( value, index ) {
+    function handleChange( value, index ) {
         let newAmounts = [ ...amounts ]
         newAmounts[ index ] = value
 
@@ -12,54 +12,42 @@ export default function PaidOut ( props ) {
     }
 
     function handleClick() {
-        let newAmounts = [...amounts]
-        newAmounts.push("")
-        updateDataFn({ amounts: newAmounts })
+        let newAmounts = [ ...amounts ]
+        newAmounts.push( "" )
+        updateDataFn( { amounts: newAmounts } )
     }
 
-    function del(){
-
-        let newAmounts = [...amounts]
-        newAmounts.pop()
-        updateDataFn({ amounts: newAmounts })
-    } 
-
-    function showList () {
-        return (
-            <div className={ styles.rectangle } >
-                <h4>Paid Outs</h4>
-                <div className={styles.inputContainer}>
+    return (
+        <Card variant="outlined">
+            <span>Paid Outs</span>
+            <div className={ styles.inputContainer }>
 
                 { amounts.map( ( amount, i ) => (
                     <div key={ i }>
-                        <input
+                        <Input
+                            type="number"
+                            step="0.01"
+                            min="0"
                             onChange={ ( { target: { value } } ) => handleChange( value, i ) }
                             value={ amount }
-                            className={ styles.inputStyle } />
+                            className={ styles.inputStyle }
+                            autoWidth={ true }
+                            startAdornment={
+                                <InputAdornment position="start">
+                                    <AttachMoneyIcon />
+                                </InputAdornment>
+                            }
+                        />
                     </div>
                 ) ) }
-                </div>
-
-
-                <div className={styles.btnContainer} >
-                    <span onClick={handleClick } className={styles.btn}> Add </span>
-                
-                    <span onClick={ del } className={styles.btn}> Delete </span>
-                </div>
-
-                <div>
-                    <span>
-                        Total: { total }
-                    </span>
-                </div>
             </div>
 
-        )
-
-
-    }
-
-    return showList()
-
+            <div>
+                <span>
+                    Total: { total }
+                </span>
+            </div>
+        </Card>
+    )
 }
 

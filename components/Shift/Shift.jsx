@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from 'react'
 import styles from './Shift.module.css'
-import { _initialState, reducer, cx, dataSelector, getState } from '../../util'
+import { reducer, cx, dataSelector, getState } from '../../util'
 
 import { Breakdown, CornerData, DrawerCount, Employees, PaidOut } from 'components'
 
@@ -30,12 +30,6 @@ export default function Shift() {
                     updateDataFn={ data => dispatch( { type: 'updatePaidOuts', data } ) }
                 />
             </div>
-            {/* <div className={ styles.startdrawer } >
-                <DrawerCount
-                    { ...dataSelector.startDrawer( state ) }
-                    updateDataFn={ data => dispatch( { type: 'updateDrawerCount', start: true, data } ) }
-                />
-            </div> */}
             <div className={ styles.enddrawer } >
                 <DrawerCount
                     { ...dataSelector.endDrawer( state ) }

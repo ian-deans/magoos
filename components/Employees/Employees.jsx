@@ -1,10 +1,20 @@
 import styles from './Employees.module.css'
-import { cx } from '../../util'
+import {
+    Input,
+    InputAdornment,
+    Table,
+    TableContainer,
+    TableHead,
+    TableBody,
+    TableRow,
+    TableCell,
+    Paper
+} from "@mui/material"
+
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+// import { cx } from '../../util'
 
 export default function Employees( { totalCashSales, totalTips, employees, updateDataFn } ) {
-
-
-
 
     function renderEmployeeRows( employees ) {
         return employees.map( ( employee, index ) => {
@@ -29,31 +39,22 @@ export default function Employees( { totalCashSales, totalTips, employees, updat
     }
 
 
-
-
     return (
         <>
-            <div className={ styles.table }>
-                <div className={ styles.row }>
-                    <span>Name</span>
-                    <span>Cash Sales</span>
-                    <span>CC Tips</span>
-                </div>
-                { renderEmployeeRows( employees ) }
-            </div>
-            <div className={ cx(styles.footer, styles.row) }>
-                <div className={styles.footerblock}>
-                    
-                </div>
-                <div className={styles.footerblock}>
-                    <div>Total Cash Sales</div>
-                    <div>${totalCashSales}</div>
-                </div>
-                <div className={styles.footerblock}>
-                    <div>Total Credit Card Tips</div>
-                    <div>${totalTips}</div>
-                    </div>
-            </div>
+            <Table size="small" padding="none" sx={ { maxWidth: '100%' } } aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell align="center">Employee Name</TableCell>
+                        <TableCell align="center">Cash Sales</TableCell>
+                        <TableCell align="center">CC Tips</TableCell>
+                    </TableRow>
+
+                </TableHead>
+                <TableBody>
+                    { renderEmployeeRows( employees ) }
+                </TableBody>
+            </Table>
+
         </>
     )
 }
@@ -61,23 +62,51 @@ export default function Employees( { totalCashSales, totalTips, employees, updat
 function EmployeeRow( { name, cashSales, ccTips, index, handleChange } ) {
 
     return (
-        <div className={ styles.row }>
-            <input
-                className={ styles.input }
-                onChange={ ( { target: { value } } ) => handleChange( { value, field: 'name', index } ) }
-                value={ name }
-            />
-            <input
-                className={ styles.input }
-                // onChange={ ( { taget: { value } } ) => handleChange( { value, field: 'cashSales', index } ) }
-                onChange={({target: {value}}) => handleChange({value, field:'cashSales', index})}
-                value={ cashSales }
+
+        <TableRow>
+            <TableCell align="center">
+                <Input
+                    disableUnderline={ true }
+                    value={ name }
+                    onChange={ handleChange }
+                    onChange={ ( { target: { value } } ) => handleChange( { value, field: 'name', index } ) }
                 />
-            <input
-                className={ styles.input }
-                onChange={({target: {value}}) => handleChange({value, field:'ccTips', index})}
-                value={ ccTips }
-            />
-        </div>
+            </TableCell>
+            <TableCell align="center">
+                <EmployeeNumberInput
+                    value={ cashSales }
+                    handleChange={ handleChange }
+                    index={ index }
+                    field="cashSales"
+                />
+
+            </TableCell>
+            <TableCell align="center">
+                <EmployeeNumberInput
+                    value={ccTips}
+                    handleChange={handleChange}
+                    field="ccTips"
+                    index={index}                
+                />
+            </TableCell>
+        </TableRow>
+    )
+}
+
+function EmployeeNumberInput( { value, handleChange, index, field } ) {
+    return (
+        <Input
+            type="number"
+            step="0.01"
+            min="0"
+            disableUnderline={ true }
+            value={ value }
+            onChange={ ( { target: { value } } ) => handleChange( { value, field, index } ) }
+            startAdornment={
+                <InputAdornment position="start">
+                    <AttachMoneyIcon />
+                </InputAdornment>
+            }
+        />
     )
 }

@@ -11,7 +11,7 @@ export default function Checkout() {
             </Head>
 
             <Shift />
-            
+
 
 
         </div>

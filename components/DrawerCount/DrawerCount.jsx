@@ -24,7 +24,10 @@ export default function DrawerCount( {
             return (
                 <div key={ denomination + whichone } className={ styles.currencyCount }>
                     <span>{ denomination }</span>
-                    <input 
+                    <input
+                        type="number"
+                        step="1"
+                        min="0"
                         onChange={ event => handleChange( event, denomination ) }
                         className={ styles.input } 
                         value={ count } 
