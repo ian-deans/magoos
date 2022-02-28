@@ -31,7 +31,7 @@ export default function PaidOut( { total, amounts, updateDataFn } ) {
                             onChange={ ( { target: { value } } ) => handleChange( value, i ) }
                             value={ amount }
                             className={ styles.inputStyle }
-                            autoWidth={ true }
+                            // autoWidth={ true }
                             startAdornment={
                                 <InputAdornment position="start">
                                     <AttachMoneyIcon />
