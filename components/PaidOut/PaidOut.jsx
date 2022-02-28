@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { Card, Input, InputAdornment } from "@mui/material"
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import styles from './PaidOut.module.css'
@@ -15,7 +16,7 @@ export default function PaidOut( { total, amounts, updateDataFn } ) {
         let newAmounts = [ ...amounts ]
         newAmounts.push( "" )
         updateDataFn( { amounts: newAmounts } )
-    }
+    }s
 
     return (
         <Card variant="outlined">
@@ -31,7 +32,6 @@ export default function PaidOut( { total, amounts, updateDataFn } ) {
                             onChange={ ( { target: { value } } ) => handleChange( value, i ) }
                             value={ amount }
                             className={ styles.inputStyle }
-                            // autoWidth={ true }
                             startAdornment={
                                 <InputAdornment position="start">
                                     <AttachMoneyIcon />
