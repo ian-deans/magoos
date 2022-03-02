@@ -23,7 +23,6 @@ export default function PaidOut( { total, amounts, updateDataFn } ) {
 
     
     function handleEnter(e, i) {
-        console.log( refs )
         if (e.key.toLowerCase() === 'enter' ) {
             if ( i < refs.length - 1 ) {
                 refs[i+1].current.focus()
@@ -56,8 +55,6 @@ export default function PaidOut( { total, amounts, updateDataFn } ) {
                         />
                     </div>
                 ) } ) }
-
-                { console.log( 'in render after mapping mounts', refs )}
             </div>
         </Card>
     )

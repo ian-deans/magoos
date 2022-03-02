@@ -12,7 +12,7 @@ export default function DrawerCount( {
     end
 } ) {
 
-    const refs = []
+    const refs = Object.keys(counts).map(() => useRef(null))
 
     function handleChange( event, denomination ) {
         const value = event.target.value
@@ -32,7 +32,7 @@ export default function DrawerCount( {
         return denominations.map( ( denomination, i ) => {
             const [ count, sum, ] = counts[ denomination ]
             const whichone = end ? 'end' : 'start'
-            refs[ i ] = useRef( null )
+            // refs[ i ] = useRef( null )
             return (
                 // <div key={ denomination + whichone } className={ styles.currencyCount }>
                 <TableRow key={denomination + whichone}>
