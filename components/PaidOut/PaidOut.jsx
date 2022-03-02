@@ -16,22 +16,36 @@ export default function PaidOut( { total, amounts, updateDataFn } ) {
         let newAmounts = [ ...amounts ]
         newAmounts.push( "" )
         updateDataFn( { amounts: newAmounts } )
-    }s
+    }
+
+    const refs = []
+
+    function handleEnter(e, i) {
+        if (e.key.toLowerCase() === 'enter' ) {
+            if ( i < 3 ) {
+                refs[i+1].current.focus()
+            }
+        }
+    }
 
     return (
         <Card variant="outlined">
             <span>Paid Outs</span>
             <div className={ styles.inputContainer }>
 
-                { amounts.map( ( amount, i ) => (
+                { amounts.map( ( amount, i ) => {
+                    refs[i] = useRef(null)
+                    return (
                     <div key={ i }>
                         <Input
+                            className={ styles.inputStyle }
                             type="number"
                             step="0.01"
                             min="0"
-                            onChange={ ( { target: { value } } ) => handleChange( value, i ) }
                             value={ amount }
-                            className={ styles.inputStyle }
+                            onChange={ ( { target: { value } } ) => handleChange( value, i ) }
+                            inputRef={refs[i]}
+                            onKeyUp={ e => handleEnter(e, i )}
                             startAdornment={
                                 <InputAdornment position="start">
                                     <AttachMoneyIcon />
@@ -39,13 +53,7 @@ export default function PaidOut( { total, amounts, updateDataFn } ) {
                             }
                         />
                     </div>
-                ) ) }
-            </div>
-
-            <div>
-                <span>
-                    Total: { total }
-                </span>
+                ) } ) }
             </div>
         </Card>
     )

@@ -1,114 +1,125 @@
 import styles from './Breakdown.module.css'
+import { Table, TableBody, TableRow, TableCell } from '@mui/material'
 
 
-const props = {
-    tCash: 200,
-    tDeficit: 345,
-    exBalance: 545
-}
-
-export default function Breakdown( props ) {
-
-    // const { tCash, tDeficit, exBalance, stBalance, endBalance, tStBalance, tCSales, tCcTips, tPo } = props
-    const {
-        totalCash,
-        totalDeficit,
-        expectedEndingBalance,
-        endingBalance,
-        startingBalance,
-        totalCashSales,
-        totalTips,
-        totalPaidOuts,
-    } = props
-
+export default function Breakdown( {
+    totalCash,
+    totalDeficit,
+    expectedEndingBalance,
+    endingBalance,
+    startingBalance,
+    totalCashSales,
+    totalTips,
+    totalPaidOuts,
+} ) {
 
 
     return (
-        <div className={ styles.container }>
-            <div className={ styles.group } >
+        <Table size="medium" padding="none">
+            <TableBody>
+                <TableRow>
+                    <TableCell>Starting Balance</TableCell>
+                    <TableCell>${ startingBalance }</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell>Total Credit Tips</TableCell>
+                    <TableCell>${ totalTips }</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>Total Cash Sales</TableCell>
+                    <TableCell>${ totalCashSales }</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell>Total Paid Outs</TableCell>
+                    <TableCell>${ totalPaidOuts }</TableCell>
 
-                <div className={ styles.box }>
-                    <div>
-                        Starting Balance:
-                    </div>
-                    <div>
-                        ${ startingBalance }
-                    </div>
-                </div>
+                </TableRow>
+            </TableBody>
 
-                <div className={ styles.box }>
-                    <span>
-                        Total Cash Sales
-                    </span>
-                    <span>
-                        ${ totalCashSales }
-                    </span>
-                </div>
+        </Table>
+        // <div className={ styles.container }>
+        //     <div className={ styles.group } >
 
+        //         <div className={ styles.box }>
+        //             <div>
+        //                 Starting Balance:
+        //             </div>
+        //             <div>
+        //                 ${ startingBalance }
+        //             </div>
+        //         </div>
 
-                <div className={ styles.box }>
-                    <span>
-                        Total Cash:
-                    </span>
-                    <span>
-                        ${ totalCash }
-                    </span>
-
-                </div>
-
-
-                <div className={ styles.box }>
-                <span>
-                        Total Tips:
-                    </span>
-                    <span>
-                        ${ totalTips }
-                    </span>
-                </div>
-
-                <div className={ styles.box }>
-                <span>
-                        Total Paid Outs:
-                    </span>
-                    <span>
-                        ${ totalPaidOuts }
-                    </span>
-                </div>
-
-                {/* </div> */ }
-
-                <div className={ styles.box } >
-                <span>
-                        Total Deficit:
-                    </span>
-                    <span>
-                        ${ totalDeficit }
-                    </span>
-                </div>
-            </div>
+        //         <div className={ styles.box }>
+        //             <span>
+        //                 Total Cash Sales
+        //             </span>
+        //             <span>
+        //                 ${ totalCashSales }
+        //             </span>
+        //         </div>
 
 
-            <div className={ styles.group } >
+        //         <div className={ styles.box }>
+        //             <span>
+        //                 Total Cash:
+        //             </span>
+        //             <span>
+        //                 ${ totalCash }
+        //             </span>
 
-                <div className={ styles.topGroup }>
+        //         </div>
 
-                    <div className={ styles.box }>
 
-                    </div>
+        //         <div className={ styles.box }>
+        //             <span>
+        //                 Total Tips:
+        //             </span>
+        //             <span>
+        //                 ${ totalTips }
+        //             </span>
+        //         </div>
 
-                    <div className={ styles.box }>
-                        Expected Ending Balance: ${ expectedEndingBalance }
-                    </div>
+        //         <div className={ styles.box }>
+        //             <span>
+        //                 Total Paid Outs:
+        //             </span>
+        //             <span>
+        //                 ${ totalPaidOuts }
+        //             </span>
+        //         </div>
 
-                </div>
+        //         {/* </div> */ }
 
-                <div className={ styles.box } >
-                    Ending Balance: ${ endingBalance }
+        //         <div className={ styles.box } >
+        //             <span>
+        //                 Total Deficit:
+        //             </span>
+        //             <span>
+        //                 ${ totalDeficit }
+        //             </span>
+        //         </div>
+        //     </div>
 
-                </div>
 
-            </div>
-        </div>
+        //     <div className={ styles.group } >
+
+        //         <div className={ styles.topGroup }>
+
+        //             <div className={ styles.box }>
+
+        //             </div>
+
+        //             <div className={ styles.box }>
+        //                 Expected Ending Balance: ${ expectedEndingBalance }
+        //             </div>
+
+        //         </div>
+
+        //         <div className={ styles.box } >
+        //             Ending Balance: ${ endingBalance }
+
+        //         </div>
+
+        //     </div>
+        // </div>
 
     )
 }
