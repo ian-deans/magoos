@@ -19,13 +19,13 @@ export default function PaidOut( { total, amounts, updateDataFn } ) {
     }
 
     //! I fucking hate the line below
-    const refs = [ useRef(null), useRef(null), useRef(null), useRef(null)]
+    const refs = [ useRef( null ), useRef( null ), useRef( null ), useRef( null ) ]
 
-    
-    function handleEnter(e, i) {
-        if (e.key.toLowerCase() === 'enter' ) {
+
+    function handleEnter( e, i ) {
+        if ( e.key.toLowerCase() === 'enter' ) {
             if ( i < refs.length - 1 ) {
-                refs[i+1].current.focus()
+                refs[ i + 1 ].current.focus()
             }
         }
     }
@@ -37,24 +37,25 @@ export default function PaidOut( { total, amounts, updateDataFn } ) {
 
                 { amounts.map( ( amount, i ) => {
                     return (
-                    <div key={ i }>
-                        <Input
-                            className={ styles.inputStyle }
-                            type="number"
-                            step="0.01"
-                            min="0"
-                            value={ amount }
-                            onChange={ ( { target: { value } } ) => handleChange( value, i ) }
-                            inputRef={refs[i]}
-                            onKeyUp={ e => handleEnter(e, i )}
-                            startAdornment={
-                                <InputAdornment position="start">
-                                    <AttachMoneyIcon />
-                                </InputAdornment>
-                            }
-                        />
-                    </div>
-                ) } ) }
+                        <div key={ i }>
+                            <Input
+                                className={ styles.inputStyle }
+                                type="number"
+                                step="0.01"
+                                min="0"
+                                value={ amount }
+                                onChange={ ( { target: { value } } ) => handleChange( value, i ) }
+                                inputRef={ refs[ i ] }
+                                onKeyUp={ e => handleEnter( e, i ) }
+                                startAdornment={
+                                    <InputAdornment position="start">
+                                        <AttachMoneyIcon />
+                                    </InputAdornment>
+                                }
+                            />
+                        </div>
+                    )
+                } ) }
             </div>
         </Card>
     )

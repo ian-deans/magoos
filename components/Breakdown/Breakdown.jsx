@@ -15,7 +15,7 @@ export default function Breakdown( {
 
 
     return (
-        <Table size="medium" padding="none">
+        <Table size="large">
             <TableBody>
                 <TableRow>
                     <TableCell>Starting Balance</TableCell>
@@ -24,12 +24,31 @@ export default function Breakdown( {
                     <TableCell>Total Credit Tips</TableCell>
                     <TableCell>${ totalTips }</TableCell>
                 </TableRow>
+
                 <TableRow>
                     <TableCell>Total Cash Sales</TableCell>
                     <TableCell>${ totalCashSales }</TableCell>
                     <TableCell></TableCell>
                     <TableCell>Total Paid Outs</TableCell>
                     <TableCell>${ totalPaidOuts }</TableCell>
+                </TableRow>
+
+                <TableRow>
+                    <TableCell>Total Cash </TableCell>
+                    <TableCell>${ totalCash }</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell>Total Deficit</TableCell>
+                    <TableCell>${ totalDeficit }</TableCell>
+                </TableRow>
+
+                <TableRow>
+                </TableRow>
+                <TableRow>
+                    <TableCell>Expected Balance </TableCell>
+                    <TableCell>${ expectedEndingBalance }</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell>Actual Ending Balance</TableCell>
+                    <TableCell>${ endingBalance }</TableCell>
 
                 </TableRow>
             </TableBody>
