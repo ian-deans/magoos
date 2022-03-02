@@ -12,7 +12,20 @@ export default function DrawerCount( {
     end
 } ) {
 
-    const refs = Object.keys(counts).map(() => useRef(null))
+    // const refs = Object.keys(counts).map(() => useRef(null))
+    const refs = [
+        useRef(null),
+        useRef(null),
+        useRef(null),
+        useRef(null),
+        useRef(null),
+        useRef(null),
+        useRef(null),
+        useRef(null),
+        useRef(null),
+        useRef(null),
+        useRef(null)
+    ]
 
     function handleChange( event, denomination ) {
         const value = event.target.value
