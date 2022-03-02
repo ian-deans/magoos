@@ -41,7 +41,7 @@ export default function Employees( { totalCashSales, totalTips, employees, updat
 
     return (
         <>
-            <Table size="small" padding="none" sx={ { maxWidth: '100%' } } aria-label="simple table">
+            <Table size="small" padding="none" sx={ { maxWidth: '100%' } }>
                 <TableHead>
                     <TableRow>
                         <TableCell align="center">Employee Name</TableCell>
@@ -68,7 +68,6 @@ function EmployeeRow( { name, cashSales, ccTips, index, handleChange } ) {
                 <Input
                     disableUnderline={ true }
                     value={ name }
-                    // onChange={ handleChange }
                     onChange={ ( { target: { value } } ) => handleChange( { value, field: 'name', index } ) }
                 />
             </TableCell>
