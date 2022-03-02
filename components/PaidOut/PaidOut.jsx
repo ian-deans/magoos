@@ -18,11 +18,14 @@ export default function PaidOut( { total, amounts, updateDataFn } ) {
         updateDataFn( { amounts: newAmounts } )
     }
 
-    const refs = []
+    //! I fucking hate the line below
+    const refs = [ useRef(null), useRef(null), useRef(null), useRef(null)]
 
+    
     function handleEnter(e, i) {
+        console.log( refs )
         if (e.key.toLowerCase() === 'enter' ) {
-            if ( i < 3 ) {
+            if ( i < refs.length - 1 ) {
                 refs[i+1].current.focus()
             }
         }
@@ -34,7 +37,6 @@ export default function PaidOut( { total, amounts, updateDataFn } ) {
             <div className={ styles.inputContainer }>
 
                 { amounts.map( ( amount, i ) => {
-                    refs[i] = useRef(null)
                     return (
                     <div key={ i }>
                         <Input
@@ -54,6 +56,8 @@ export default function PaidOut( { total, amounts, updateDataFn } ) {
                         />
                     </div>
                 ) } ) }
+
+                { console.log( 'in render after mapping mounts', refs )}
             </div>
         </Card>
     )
