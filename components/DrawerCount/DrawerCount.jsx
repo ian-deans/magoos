@@ -14,17 +14,17 @@ export default function DrawerCount( {
 
     // const refs = Object.keys(counts).map(() => useRef(null))
     const refs = [
-        useRef(null),
-        useRef(null),
-        useRef(null),
-        useRef(null),
-        useRef(null),
-        useRef(null),
-        useRef(null),
-        useRef(null),
-        useRef(null),
-        useRef(null),
-        useRef(null)
+        useRef( null ),
+        useRef( null ),
+        useRef( null ),
+        useRef( null ),
+        useRef( null ),
+        useRef( null ),
+        useRef( null ),
+        useRef( null ),
+        useRef( null ),
+        useRef( null ),
+        useRef( null )
     ]
 
     function handleChange( event, denomination ) {
@@ -48,7 +48,7 @@ export default function DrawerCount( {
             // refs[ i ] = useRef( null )
             return (
                 // <div key={ denomination + whichone } className={ styles.currencyCount }>
-                <TableRow key={denomination + whichone}>
+                <TableRow key={ denomination + whichone }>
 
                     <TableCell>{ denomination }</TableCell>
                     <TableCell>
@@ -64,7 +64,7 @@ export default function DrawerCount( {
                             onChange={ event => handleChange( event, denomination ) }
                             inputRef={ refs[ i ] }
                             onKeyUp={ ( { key } ) => handleEnter( key, i ) }
-                            // disableUnderline={ true }
+                        // disableUnderline={ true }
                         />
                     </TableCell>
                     <TableCell>${ sum }</TableCell>
