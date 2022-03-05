@@ -1,3 +1,4 @@
 ### Bar App
 
-Source code for an app to handle various aspects of a bar.
+A simple app I am using for a local establishment while also teaching another developer React.
+In light of this being a learning project I aimed to keep it simple and minimize the amount of external libraries used.
