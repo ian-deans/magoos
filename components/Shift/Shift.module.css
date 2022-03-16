@@ -4,6 +4,8 @@
 }
 
 .grid {
+
+    margin: auto;
     
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -22,7 +24,9 @@
     justify-items: stretch;
 
     min-height: 100vh;
-    min-width: 100vw;
+    min-width: 300px;
+
+    max-width: 600px;
 
     height: 100vh;
     width: 100vw;

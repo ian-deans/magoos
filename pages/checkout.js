@@ -5,7 +5,7 @@ export default function Checkout() {
     return (
         <div>
             <Head>
-                <title></title>
+                <title>Shift Checkout | Magoos</title>
                 <meta />
                 <link rel="icon" href="" />
             </Head>

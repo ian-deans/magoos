@@ -18,7 +18,7 @@ export default function PaidOut( { total, amounts, updateDataFn } ) {
         updateDataFn( { amounts: newAmounts } )
     }
 
-    //! I fucking hate the line below
+    //! I immensely dispise the line of code below...
     const refs = [ useRef( null ), useRef( null ), useRef( null ), useRef( null ) ]
 
 

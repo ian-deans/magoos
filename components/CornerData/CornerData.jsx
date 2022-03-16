@@ -13,7 +13,6 @@ export default function CornerData( { date, type, startingBalance, updateDataFn 
         updateDataFn( { type: value, startingBalance } )
     }
 
-
     return (
         <div className={ styles.container }>
             <div className={ styles.row1 }>
@@ -22,14 +21,12 @@ export default function CornerData( { date, type, startingBalance, updateDataFn 
                     value={ date }
                     disabled={ true }
                 />
-                {/* <div>{ date }</div> */ }
 
             </div>
 
             <div className={ styles.row2 }>
                 <Select
                     value={ type }
-                    // label="type"
                     onChange={ handleSelect }
                     className={ styles.select }
                 >
@@ -37,7 +34,6 @@ export default function CornerData( { date, type, startingBalance, updateDataFn 
                     <MenuItem value={ 'Mid' }>Mid</MenuItem>
                     <MenuItem value={ 'Close' }>Close</MenuItem>
                 </Select>
-                {/* <div className={ styles.balanceContainer }> */}
                     <Input
                         placeholder="Starting Balance"
                         type="number"
@@ -54,7 +50,6 @@ export default function CornerData( { date, type, startingBalance, updateDataFn 
                         sx={ { minWidth: "100%" } }
                         disableUnderline={ true }
                     />
-                {/* </div> */}
             </div>
         </div>
     )
